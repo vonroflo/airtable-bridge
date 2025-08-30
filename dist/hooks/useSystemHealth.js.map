@@ -1,0 +1,1 @@
+{"version":3,"file":"useSystemHealth.js","sourceRoot":"","sources":["../../src/hooks/useSystemHealth.ts"],"names":[],"mappings":";;AAIA,0CAOC;AAXD,uDAAgD;AAChD,sCAAuD;AAGvD,SAAgB,eAAe;IAC7B,OAAO,IAAA,sBAAQ,EAAe;QAC5B,QAAQ,EAAE,CAAC,eAAe,CAAC;QAC3B,OAAO,EAAE,GAAG,EAAE,CAAC,eAAS,CAAC,GAAG,CAAC,mBAAa,CAAC,MAAM,CAAC;QAClD,eAAe,EAAE,IAAI;QACrB,SAAS,EAAE,CAAC;KACb,CAAC,CAAA;AACJ,CAAC"}
