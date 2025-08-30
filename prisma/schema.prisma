@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AirtableBase {
+  id          String   @id @default(uuid())
+  baseId      String   @unique  // Airtable base ID
+  name        String
+  apiKey      String   // Encrypted
+  rateLimitRpm Int     @default(300)  // 5 per second = 300 per minute
+  recordLimit  Int?     // Base record limit
+  storageLimit Int?     // In MB
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  tables       AirtableTable[]
+  syncJobs     SyncJob[]
+  queueJobs    QueueJob[]
+  apiMetrics   ApiMetric[]
+}
+
+model AirtableTable {
+  id          String   @id @default(uuid())
+  tableId     String   // Airtable table ID
+  name        String
+  baseId      String
+  base        AirtableBase @relation(fields: [baseId], references: [id], onDelete: Cascade)
+  recordCount Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([baseId, tableId])
+}
+
+model SyncJob {
+  id          String   @id @default(uuid())
+  baseId      String
+  base        AirtableBase @relation(fields: [baseId], references: [id], onDelete: Cascade)
+  jobType     String   // 'full', 'incremental', 'webhook'
+  status      String   // 'pending', 'running', 'completed', 'failed'
+  progress    Int      @default(0) // 0-100
+  totalRecords Int?
+  processedRecords Int @default(0)
+  errorMessage String?
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model QueueJob {
+  id          String   @id @default(uuid())
+  baseId      String
+  base        AirtableBase @relation(fields: [baseId], references: [id], onDelete: Cascade)
+  jobType     String   // 'create', 'update', 'delete', 'query'
+  status      String   // 'pending', 'processing', 'completed', 'failed', 'retry'
+  priority    Int      @default(0) // Higher number = higher priority
+  data        Json     // Job payload
+  attempts    Int      @default(0)
+  maxAttempts Int      @default(3)
+  errorMessage String?
+  scheduledAt DateTime @default(now())
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ApiMetric {
+  id          String   @id @default(uuid())
+  baseId      String
+  base        AirtableBase @relation(fields: [baseId], references: [id], onDelete: Cascade)
+  endpoint    String
+  method      String
+  statusCode  Int
+  responseTime Int     // in milliseconds
+  timestamp   DateTime @default(now())
+  userId      String?
+  ipAddress   String?
+}
+
+model ArchivedRecord {
+  id          String   @id @default(uuid())
+  baseId      String
+  tableId     String
+  recordId    String   // Original Airtable record ID
+  data        Json     // Record data
+  archivedAt  DateTime @default(now())
+  restoredAt  DateTime?
+  isRestored  Boolean  @default(false)
+
+  @@unique([baseId, tableId, recordId])
+}
+
+model CachedQuery {
+  id          String   @id @default(uuid())
+  baseId      String
+  tableId     String
+  queryHash   String   // Hash of query parameters
+  result      Json     // Cached result
+  expiresAt   DateTime
+  hitCount    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([baseId, tableId, queryHash])
+}
+
+model WebhookEvent {
+  id          String   @id @default(uuid())
+  baseId      String
+  eventType   String   // 'record_created', 'record_updated', 'record_deleted'
+  payload     Json     // Webhook payload
+  processed   Boolean  @default(false)
+  processedAt DateTime?
+  errorMessage String?
+  createdAt   DateTime @default(now())
+}
+
+model ShadowField {
+  id          String   @id @default(uuid())
+  baseId      String
+  tableId     String
+  fieldName   String   // Name of the shadow field
+  fieldType   String   // 'created_time', 'modified_time', 'created_by', 'modified_by'
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([baseId, tableId, fieldName])
+}
+
+model ViewPreset {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  baseId      String
+  tableId     String
+  filters     Json     // Filter configuration
+  sort        Json?    // Sort configuration
+  fields      Json?    // Field selection
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
