@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Plus, Search, MoreVertical, Edit, Trash2, Play, Pause } from 'lucide-react'
+import { Plus, Search, MoreVertical, Edit, Trash2, Play, Pause, Database } from 'lucide-react'
 import StatusBadge from '../components/ui/StatusBadge'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import { useBases, useUpdateBase, useDeleteBase } from '../hooks/useBases'
