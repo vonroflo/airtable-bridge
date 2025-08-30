@@ -8,7 +8,7 @@ export interface ApiResponse<T = any> {
 
 class ApiClient {
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const url = `${API_BASE_URL}${endpoint}`
+    const url = endpoint.startsWith('/health') ? endpoint : `${API_BASE_URL}${endpoint}`
     
     try {
       const response = await fetch(url, {
