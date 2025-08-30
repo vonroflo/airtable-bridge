@@ -1,3 +1,2 @@
-import React from 'react';
-export default function SyncStatus(): React.JSX.Element;
+export default function SyncStatus(): import("react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=SyncStatus.d.ts.map

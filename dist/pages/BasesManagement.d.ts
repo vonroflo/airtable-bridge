@@ -1,3 +1,2 @@
-import React from 'react';
-export default function BasesManagement(): React.JSX.Element;
+export default function BasesManagement(): import("react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=BasesManagement.d.ts.map

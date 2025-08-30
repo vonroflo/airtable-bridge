@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = StorageManagement;
-const react_1 = __importDefault(require("react"));
+const jsx_runtime_1 = require("react/jsx-runtime");
 const lucide_react_1 = require("lucide-react");
 const recharts_1 = require("recharts");
 const MetricCard_1 = __importDefault(require("../components/ui/MetricCard"));
@@ -38,172 +38,11 @@ const mockArchivedBases = [
 ];
 function StorageManagement() {
     const storageUsagePercent = (mockStorageMetrics.totalUsed / mockStorageMetrics.totalCapacity) * 100;
-    return (<div className="space-y-6 animate-fade-in">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Storage Management
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Monitor storage usage and manage data archival
-          </p>
-        </div>
-        <div className="flex items-center space-x-2">
-          <button className="flex items-center space-x-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors">
-            <lucide_react_1.Archive className="w-4 h-4"/>
-            <span>Archive Old Records</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Storage Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <MetricCard_1.default title="Storage Used" value={`${mockStorageMetrics.totalUsed}GB`} icon={lucide_react_1.HardDrive} status={storageUsagePercent > 80 ? 'error' : storageUsagePercent > 60 ? 'warning' : 'healthy'} change={{ value: 12, type: 'increase', period: 'last week' }}/>
-        
-        <MetricCard_1.default title="Archived Records" value={mockStorageMetrics.archivedRecords.toLocaleString()} icon={lucide_react_1.Archive} status="healthy" change={{ value: 8, type: 'increase', period: 'last month' }}/>
-        
-        <MetricCard_1.default title="S3 Storage" value={`${mockStorageMetrics.s3Storage}GB`} icon={lucide_react_1.Upload} status="healthy" change={{ value: 15, type: 'increase', period: 'last week' }}/>
-        
-        <MetricCard_1.default title="Attachments" value={mockStorageMetrics.attachmentCount.toLocaleString()} icon={lucide_react_1.Download} status="healthy" change={{ value: 5, type: 'increase', period: 'last week' }}/>
-      </div>
-
-      {/* Storage Overview */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-          Storage Capacity Overview
-        </h3>
-        <div className="flex items-center space-x-6">
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-600 dark:text-gray-400">Total Usage</span>
-              <span className="text-sm font-medium text-gray-900 dark:text-white">
-                {mockStorageMetrics.totalUsed}GB / {mockStorageMetrics.totalCapacity}GB
-              </span>
-            </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-              <div className={`h-3 rounded-full transition-all duration-300 ${storageUsagePercent > 80 ? 'bg-red-500' :
-            storageUsagePercent > 60 ? 'bg-yellow-500' : 'bg-green-500'}`} style={{ width: `${storageUsagePercent}%` }}/>
-            </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-              {storageUsagePercent.toFixed(1)}% of capacity used
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Storage by Base */}
-        <div className="card">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Storage by Base
-          </h3>
-          <recharts_1.ResponsiveContainer width="100%" height={300}>
-            <recharts_1.PieChart>
-              <recharts_1.Pie data={mockStorageByBase} cx="50%" cy="50%" innerRadius={60} outerRadius={100} paddingAngle={5} dataKey="storage">
-                {mockStorageByBase.map((entry, index) => (<recharts_1.Cell key={`cell-${index}`} fill={entry.color}/>))}
-              </recharts_1.Pie>
-              <recharts_1.Tooltip formatter={(value) => [`${value}GB`, 'Storage']}/>
-            </recharts_1.PieChart>
-          </recharts_1.ResponsiveContainer>
-          <div className="mt-4 space-y-2">
-            {mockStorageByBase.map((item, index) => (<div key={index} className="flex items-center justify-between text-sm">
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}/>
-                  <span className="text-gray-700 dark:text-gray-300">{item.name}</span>
-                </div>
-                <span className="font-medium text-gray-900 dark:text-white">
-                  {item.storage}GB
-                </span>
-              </div>))}
-          </div>
-        </div>
-
-        {/* Archival History */}
-        <div className="card">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Archival Activity
-          </h3>
-          <recharts_1.ResponsiveContainer width="100%" height={300}>
-            <recharts_1.BarChart data={mockArchivalHistory}>
-              <recharts_1.CartesianGrid strokeDasharray="3 3" className="opacity-30"/>
-              <recharts_1.XAxis dataKey="date" className="text-xs"/>
-              <recharts_1.YAxis className="text-xs"/>
-              <recharts_1.Tooltip contentStyle={{
-            backgroundColor: 'rgba(255, 255, 255, 0.95)',
-            border: '1px solid #e2e8f0',
-            borderRadius: '8px'
-        }}/>
-              <recharts_1.Bar dataKey="archived" fill="#6366f1" name="Archived"/>
-              <recharts_1.Bar dataKey="restored" fill="#10b981" name="Restored"/>
-            </recharts_1.BarChart>
-          </recharts_1.ResponsiveContainer>
-        </div>
-      </div>
-
-      {/* Archived Bases Summary */}
-      <div className="card">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Archival Summary by Base
-          </h3>
-          <button className="flex items-center space-x-2 px-3 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-sm rounded-lg transition-colors">
-            <lucide_react_1.Download className="w-4 h-4"/>
-            <span>Export Report</span>
-          </button>
-        </div>
-        
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-200/50 dark:border-gray-700/50">
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400">Base</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400">Archived Records</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400">Storage Freed</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400">Last Archival</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {mockArchivedBases.map((base) => (<tr key={base.baseId} className="border-b border-gray-200/30 dark:border-gray-700/30 hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors">
-                  <td className="py-3 px-4">
-                    <div>
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">
-                        {base.baseName}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 font-mono">
-                        {base.baseId}
-                      </p>
-                    </div>
-                  </td>
-                  <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                    {base.archivedRecords.toLocaleString()}
-                  </td>
-                  <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                    {base.storageFreed}
-                  </td>
-                  <td className="py-3 px-4 text-sm text-gray-500 dark:text-gray-400">
-                    {new Date(base.lastArchival).toLocaleDateString()}
-                  </td>
-                  <td className="py-3 px-4">
-                    <div className="flex items-center space-x-2">
-                      <button className="p-1.5 text-blue-600 hover:text-blue-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors" title="Download Archive">
-                        <lucide_react_1.Download className="w-4 h-4"/>
-                      </button>
-                      <button className="p-1.5 text-green-600 hover:text-green-700 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors" title="Restore Records">
-                        <lucide_react_1.Upload className="w-4 h-4"/>
-                      </button>
-                      <button className="p-1.5 text-red-600 hover:text-red-700 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors" title="Delete Archive">
-                        <lucide_react_1.Trash2 className="w-4 h-4"/>
-                      </button>
-                    </div>
-                  </td>
-                </tr>))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>);
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "space-y-6 animate-fade-in", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between", children: [(0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h1", { className: "text-3xl font-bold text-gray-900 dark:text-white", children: "Storage Management" }), (0, jsx_runtime_1.jsx)("p", { className: "text-gray-600 dark:text-gray-400 mt-1", children: "Monitor storage usage and manage data archival" })] }), (0, jsx_runtime_1.jsx)("div", { className: "flex items-center space-x-2", children: (0, jsx_runtime_1.jsxs)("button", { className: "flex items-center space-x-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors", children: [(0, jsx_runtime_1.jsx)(lucide_react_1.Archive, { className: "w-4 h-4" }), (0, jsx_runtime_1.jsx)("span", { children: "Archive Old Records" })] }) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6", children: [(0, jsx_runtime_1.jsx)(MetricCard_1.default, { title: "Storage Used", value: `${mockStorageMetrics.totalUsed}GB`, icon: lucide_react_1.HardDrive, status: storageUsagePercent > 80 ? 'error' : storageUsagePercent > 60 ? 'warning' : 'healthy', change: { value: 12, type: 'increase', period: 'last week' } }), (0, jsx_runtime_1.jsx)(MetricCard_1.default, { title: "Archived Records", value: mockStorageMetrics.archivedRecords.toLocaleString(), icon: lucide_react_1.Archive, status: "healthy", change: { value: 8, type: 'increase', period: 'last month' } }), (0, jsx_runtime_1.jsx)(MetricCard_1.default, { title: "S3 Storage", value: `${mockStorageMetrics.s3Storage}GB`, icon: lucide_react_1.Upload, status: "healthy", change: { value: 15, type: 'increase', period: 'last week' } }), (0, jsx_runtime_1.jsx)(MetricCard_1.default, { title: "Attachments", value: mockStorageMetrics.attachmentCount.toLocaleString(), icon: lucide_react_1.Download, status: "healthy", change: { value: 5, type: 'increase', period: 'last week' } })] }), (0, jsx_runtime_1.jsxs)("div", { className: "card", children: [(0, jsx_runtime_1.jsx)("h3", { className: "text-lg font-semibold text-gray-900 dark:text-white mb-4", children: "Storage Capacity Overview" }), (0, jsx_runtime_1.jsx)("div", { className: "flex items-center space-x-6", children: (0, jsx_runtime_1.jsxs)("div", { className: "flex-1", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between mb-2", children: [(0, jsx_runtime_1.jsx)("span", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Total Usage" }), (0, jsx_runtime_1.jsxs)("span", { className: "text-sm font-medium text-gray-900 dark:text-white", children: [mockStorageMetrics.totalUsed, "GB / ", mockStorageMetrics.totalCapacity, "GB"] })] }), (0, jsx_runtime_1.jsx)("div", { className: "w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3", children: (0, jsx_runtime_1.jsx)("div", { className: `h-3 rounded-full transition-all duration-300 ${storageUsagePercent > 80 ? 'bg-red-500' :
+                                            storageUsagePercent > 60 ? 'bg-yellow-500' : 'bg-green-500'}`, style: { width: `${storageUsagePercent}%` } }) }), (0, jsx_runtime_1.jsxs)("p", { className: "text-xs text-gray-500 dark:text-gray-400 mt-1", children: [storageUsagePercent.toFixed(1), "% of capacity used"] })] }) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-6", children: [(0, jsx_runtime_1.jsxs)("div", { className: "card", children: [(0, jsx_runtime_1.jsx)("h3", { className: "text-lg font-semibold text-gray-900 dark:text-white mb-4", children: "Storage by Base" }), (0, jsx_runtime_1.jsx)(recharts_1.ResponsiveContainer, { width: "100%", height: 300, children: (0, jsx_runtime_1.jsxs)(recharts_1.PieChart, { children: [(0, jsx_runtime_1.jsx)(recharts_1.Pie, { data: mockStorageByBase, cx: "50%", cy: "50%", innerRadius: 60, outerRadius: 100, paddingAngle: 5, dataKey: "storage", children: mockStorageByBase.map((entry, index) => ((0, jsx_runtime_1.jsx)(recharts_1.Cell, { fill: entry.color }, `cell-${index}`))) }), (0, jsx_runtime_1.jsx)(recharts_1.Tooltip, { formatter: (value) => [`${value}GB`, 'Storage'] })] }) }), (0, jsx_runtime_1.jsx)("div", { className: "mt-4 space-y-2", children: mockStorageByBase.map((item, index) => ((0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between text-sm", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-2", children: [(0, jsx_runtime_1.jsx)("div", { className: "w-3 h-3 rounded-full", style: { backgroundColor: item.color } }), (0, jsx_runtime_1.jsx)("span", { className: "text-gray-700 dark:text-gray-300", children: item.name })] }), (0, jsx_runtime_1.jsxs)("span", { className: "font-medium text-gray-900 dark:text-white", children: [item.storage, "GB"] })] }, index))) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "card", children: [(0, jsx_runtime_1.jsx)("h3", { className: "text-lg font-semibold text-gray-900 dark:text-white mb-4", children: "Archival Activity" }), (0, jsx_runtime_1.jsx)(recharts_1.ResponsiveContainer, { width: "100%", height: 300, children: (0, jsx_runtime_1.jsxs)(recharts_1.BarChart, { data: mockArchivalHistory, children: [(0, jsx_runtime_1.jsx)(recharts_1.CartesianGrid, { strokeDasharray: "3 3", className: "opacity-30" }), (0, jsx_runtime_1.jsx)(recharts_1.XAxis, { dataKey: "date", className: "text-xs" }), (0, jsx_runtime_1.jsx)(recharts_1.YAxis, { className: "text-xs" }), (0, jsx_runtime_1.jsx)(recharts_1.Tooltip, { contentStyle: {
+                                                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                                                border: '1px solid #e2e8f0',
+                                                borderRadius: '8px'
+                                            } }), (0, jsx_runtime_1.jsx)(recharts_1.Bar, { dataKey: "archived", fill: "#6366f1", name: "Archived" }), (0, jsx_runtime_1.jsx)(recharts_1.Bar, { dataKey: "restored", fill: "#10b981", name: "Restored" })] }) })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "card", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between mb-6", children: [(0, jsx_runtime_1.jsx)("h3", { className: "text-lg font-semibold text-gray-900 dark:text-white", children: "Archival Summary by Base" }), (0, jsx_runtime_1.jsxs)("button", { className: "flex items-center space-x-2 px-3 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-sm rounded-lg transition-colors", children: [(0, jsx_runtime_1.jsx)(lucide_react_1.Download, { className: "w-4 h-4" }), (0, jsx_runtime_1.jsx)("span", { children: "Export Report" })] })] }), (0, jsx_runtime_1.jsx)("div", { className: "overflow-x-auto", children: (0, jsx_runtime_1.jsxs)("table", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("thead", { children: (0, jsx_runtime_1.jsxs)("tr", { className: "border-b border-gray-200/50 dark:border-gray-700/50", children: [(0, jsx_runtime_1.jsx)("th", { className: "text-left py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400", children: "Base" }), (0, jsx_runtime_1.jsx)("th", { className: "text-left py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400", children: "Archived Records" }), (0, jsx_runtime_1.jsx)("th", { className: "text-left py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400", children: "Storage Freed" }), (0, jsx_runtime_1.jsx)("th", { className: "text-left py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400", children: "Last Archival" }), (0, jsx_runtime_1.jsx)("th", { className: "text-left py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400", children: "Actions" })] }) }), (0, jsx_runtime_1.jsx)("tbody", { children: mockArchivedBases.map((base) => ((0, jsx_runtime_1.jsxs)("tr", { className: "border-b border-gray-200/30 dark:border-gray-700/30 hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors", children: [(0, jsx_runtime_1.jsx)("td", { className: "py-3 px-4", children: (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("p", { className: "text-sm font-medium text-gray-900 dark:text-white", children: base.baseName }), (0, jsx_runtime_1.jsx)("p", { className: "text-xs text-gray-500 dark:text-gray-400 font-mono", children: base.baseId })] }) }), (0, jsx_runtime_1.jsx)("td", { className: "py-3 px-4 text-sm text-gray-700 dark:text-gray-300", children: base.archivedRecords.toLocaleString() }), (0, jsx_runtime_1.jsx)("td", { className: "py-3 px-4 text-sm text-gray-700 dark:text-gray-300", children: base.storageFreed }), (0, jsx_runtime_1.jsx)("td", { className: "py-3 px-4 text-sm text-gray-500 dark:text-gray-400", children: new Date(base.lastArchival).toLocaleDateString() }), (0, jsx_runtime_1.jsx)("td", { className: "py-3 px-4", children: (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-2", children: [(0, jsx_runtime_1.jsx)("button", { className: "p-1.5 text-blue-600 hover:text-blue-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors", title: "Download Archive", children: (0, jsx_runtime_1.jsx)(lucide_react_1.Download, { className: "w-4 h-4" }) }), (0, jsx_runtime_1.jsx)("button", { className: "p-1.5 text-green-600 hover:text-green-700 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors", title: "Restore Records", children: (0, jsx_runtime_1.jsx)(lucide_react_1.Upload, { className: "w-4 h-4" }) }), (0, jsx_runtime_1.jsx)("button", { className: "p-1.5 text-red-600 hover:text-red-700 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors", title: "Delete Archive", children: (0, jsx_runtime_1.jsx)(lucide_react_1.Trash2, { className: "w-4 h-4" }) })] }) })] }, base.baseId))) })] }) })] })] }));
 }
 //# sourceMappingURL=StorageManagement.js.map

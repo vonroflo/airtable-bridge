@@ -1,43 +1,11 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = AlertsLogs;
-const react_1 = __importStar(require("react"));
+const jsx_runtime_1 = require("react/jsx-runtime");
+const react_1 = require("react");
 const lucide_react_1 = require("lucide-react");
 const StatusBadge_1 = __importDefault(require("../components/ui/StatusBadge"));
 // Mock data for demonstration
@@ -66,191 +34,28 @@ function AlertsLogs() {
     });
     const getAlertIcon = (type) => {
         switch (type) {
-            case 'error': return <lucide_react_1.XCircle className="w-5 h-5 text-red-500"/>;
-            case 'warning': return <lucide_react_1.AlertTriangle className="w-5 h-5 text-yellow-500"/>;
-            case 'info': return <lucide_react_1.Info className="w-5 h-5 text-blue-500"/>;
-            default: return <lucide_react_1.CheckCircle className="w-5 h-5 text-green-500"/>;
+            case 'error': return (0, jsx_runtime_1.jsx)(lucide_react_1.XCircle, { className: "w-5 h-5 text-red-500" });
+            case 'warning': return (0, jsx_runtime_1.jsx)(lucide_react_1.AlertTriangle, { className: "w-5 h-5 text-yellow-500" });
+            case 'info': return (0, jsx_runtime_1.jsx)(lucide_react_1.Info, { className: "w-5 h-5 text-blue-500" });
+            default: return (0, jsx_runtime_1.jsx)(lucide_react_1.CheckCircle, { className: "w-5 h-5 text-green-500" });
         }
     };
     const getLogIcon = (level) => {
         switch (level) {
-            case 'error': return <lucide_react_1.XCircle className="w-4 h-4 text-red-500"/>;
-            case 'warn': return <lucide_react_1.AlertTriangle className="w-4 h-4 text-yellow-500"/>;
-            case 'info': return <lucide_react_1.Info className="w-4 h-4 text-blue-500"/>;
-            default: return <lucide_react_1.CheckCircle className="w-4 h-4 text-green-500"/>;
+            case 'error': return (0, jsx_runtime_1.jsx)(lucide_react_1.XCircle, { className: "w-4 h-4 text-red-500" });
+            case 'warn': return (0, jsx_runtime_1.jsx)(lucide_react_1.AlertTriangle, { className: "w-4 h-4 text-yellow-500" });
+            case 'info': return (0, jsx_runtime_1.jsx)(lucide_react_1.Info, { className: "w-4 h-4 text-blue-500" });
+            default: return (0, jsx_runtime_1.jsx)(lucide_react_1.CheckCircle, { className: "w-4 h-4 text-green-500" });
         }
     };
-    return (<div className="space-y-6 animate-fade-in">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Alerts & Logs
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Monitor system alerts and review activity logs
-          </p>
-        </div>
-      </div>
-
-      {/* Alert Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="card">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-              <lucide_react_1.XCircle className="w-5 h-5 text-red-600 dark:text-red-400"/>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Critical</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-white">
-                {mockAlerts.filter(a => a.type === 'error' && !a.resolved).length}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="card">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
-              <lucide_react_1.AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-400"/>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Warnings</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-white">
-                {mockAlerts.filter(a => a.type === 'warning' && !a.resolved).length}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="card">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-              <lucide_react_1.Info className="w-5 h-5 text-blue-600 dark:text-blue-400"/>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Info</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-white">
-                {mockAlerts.filter(a => a.type === 'info').length}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="card">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-              <lucide_react_1.CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400"/>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Resolved</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-white">
-                {mockAlerts.filter(a => a.resolved).length}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabs */}
-      <div className="card">
-        <div className="border-b border-gray-200 dark:border-gray-700">
-          <nav className="-mb-px flex space-x-8">
-            <button onClick={() => setActiveTab('alerts')} className={`py-2 px-1 border-b-2 font-medium text-sm ${activeTab === 'alerts'
-            ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'}`}>
-              Alerts ({mockAlerts.length})
-            </button>
-            <button onClick={() => setActiveTab('logs')} className={`py-2 px-1 border-b-2 font-medium text-sm ${activeTab === 'logs'
-            ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'}`}>
-              Logs ({mockLogs.length})
-            </button>
-          </nav>
-        </div>
-
-        {/* Search and Filters */}
-        <div className="p-4 border-b border-gray-200/50 dark:border-gray-700/50">
-          <div className="flex items-center space-x-4">
-            <div className="flex-1 relative">
-              <lucide_react_1.Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"/>
-              <input type="text" placeholder={`Search ${activeTab}...`} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"/>
-            </div>
-            {activeTab === 'logs' && (<select value={selectedLevel} onChange={(e) => setSelectedLevel(e.target.value)} className="px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
-                <option value="">All Levels</option>
-                <option value="error">Error</option>
-                <option value="warn">Warning</option>
-                <option value="info">Info</option>
-              </select>)}
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-4">
-          {activeTab === 'alerts' ? (<div className="space-y-4">
-              {filteredAlerts.map((alert) => (<div key={alert.id} className={`p-4 rounded-lg border ${alert.type === 'error' ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/50' :
-                    alert.type === 'warning' ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800/50' :
-                        'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800/50'}`}>
-                  <div className="flex items-start space-x-3">
-                    {getAlertIcon(alert.type)}
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-sm font-medium text-gray-900 dark:text-white">
-                          {alert.title}
-                        </h4>
-                        <div className="flex items-center space-x-2">
-                          <StatusBadge_1.default status={alert.resolved ? 'completed' : 'pending'}/>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
-                            {new Date(alert.timestamp).toLocaleString()}
-                          </span>
-                        </div>
-                      </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        {alert.message}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 font-mono">
-                        Base: {alert.baseId}
-                      </p>
-                    </div>
-                  </div>
-                </div>))}
-            </div>) : (<div className="space-y-2">
-              {filteredLogs.map((log) => (<div key={log.id} className="p-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 rounded-lg transition-colors">
-                  <div className="flex items-start space-x-3">
-                    {getLogIcon(log.level)}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between">
-                        <p className="text-sm text-gray-900 dark:text-white">
-                          {log.message}
-                        </p>
-                        <span className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap ml-4">
-                          {new Date(log.timestamp).toLocaleString()}
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-4 mt-1">
-                        <span className="text-xs text-gray-500 dark:text-gray-400 font-mono">
-                          {log.baseId}
-                        </span>
-                        <span className={`text-xs px-2 py-0.5 rounded-full ${log.level === 'error' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                    log.level === 'warn' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                        'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'}`}>
-                          {log.level.toUpperCase()}
-                        </span>
-                      </div>
-                      {log.details && (<details className="mt-2">
-                          <summary className="text-xs text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
-                            Show details
-                          </summary>
-                          <pre className="text-xs text-gray-600 dark:text-gray-400 mt-1 p-2 bg-gray-100 dark:bg-gray-800 rounded overflow-x-auto">
-                            {JSON.stringify(log.details, null, 2)}
-                          </pre>
-                        </details>)}
-                    </div>
-                  </div>
-                </div>))}
-            </div>)}
-        </div>
-      </div>
-    </div>);
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "space-y-6 animate-fade-in", children: [(0, jsx_runtime_1.jsx)("div", { className: "flex items-center justify-between", children: (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h1", { className: "text-3xl font-bold text-gray-900 dark:text-white", children: "Alerts & Logs" }), (0, jsx_runtime_1.jsx)("p", { className: "text-gray-600 dark:text-gray-400 mt-1", children: "Monitor system alerts and review activity logs" })] }) }), (0, jsx_runtime_1.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-4 gap-6", children: [(0, jsx_runtime_1.jsx)("div", { className: "card", children: (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-3", children: [(0, jsx_runtime_1.jsx)("div", { className: "p-2 bg-red-100 dark:bg-red-900/30 rounded-lg", children: (0, jsx_runtime_1.jsx)(lucide_react_1.XCircle, { className: "w-5 h-5 text-red-600 dark:text-red-400" }) }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Critical" }), (0, jsx_runtime_1.jsx)("p", { className: "text-xl font-bold text-gray-900 dark:text-white", children: mockAlerts.filter(a => a.type === 'error' && !a.resolved).length })] })] }) }), (0, jsx_runtime_1.jsx)("div", { className: "card", children: (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-3", children: [(0, jsx_runtime_1.jsx)("div", { className: "p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg", children: (0, jsx_runtime_1.jsx)(lucide_react_1.AlertTriangle, { className: "w-5 h-5 text-yellow-600 dark:text-yellow-400" }) }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Warnings" }), (0, jsx_runtime_1.jsx)("p", { className: "text-xl font-bold text-gray-900 dark:text-white", children: mockAlerts.filter(a => a.type === 'warning' && !a.resolved).length })] })] }) }), (0, jsx_runtime_1.jsx)("div", { className: "card", children: (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-3", children: [(0, jsx_runtime_1.jsx)("div", { className: "p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg", children: (0, jsx_runtime_1.jsx)(lucide_react_1.Info, { className: "w-5 h-5 text-blue-600 dark:text-blue-400" }) }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Info" }), (0, jsx_runtime_1.jsx)("p", { className: "text-xl font-bold text-gray-900 dark:text-white", children: mockAlerts.filter(a => a.type === 'info').length })] })] }) }), (0, jsx_runtime_1.jsx)("div", { className: "card", children: (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-3", children: [(0, jsx_runtime_1.jsx)("div", { className: "p-2 bg-green-100 dark:bg-green-900/30 rounded-lg", children: (0, jsx_runtime_1.jsx)(lucide_react_1.CheckCircle, { className: "w-5 h-5 text-green-600 dark:text-green-400" }) }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Resolved" }), (0, jsx_runtime_1.jsx)("p", { className: "text-xl font-bold text-gray-900 dark:text-white", children: mockAlerts.filter(a => a.resolved).length })] })] }) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "card", children: [(0, jsx_runtime_1.jsx)("div", { className: "border-b border-gray-200 dark:border-gray-700", children: (0, jsx_runtime_1.jsxs)("nav", { className: "-mb-px flex space-x-8", children: [(0, jsx_runtime_1.jsxs)("button", { onClick: () => setActiveTab('alerts'), className: `py-2 px-1 border-b-2 font-medium text-sm ${activeTab === 'alerts'
+                                        ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'}`, children: ["Alerts (", mockAlerts.length, ")"] }), (0, jsx_runtime_1.jsxs)("button", { onClick: () => setActiveTab('logs'), className: `py-2 px-1 border-b-2 font-medium text-sm ${activeTab === 'logs'
+                                        ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'}`, children: ["Logs (", mockLogs.length, ")"] })] }) }), (0, jsx_runtime_1.jsx)("div", { className: "p-4 border-b border-gray-200/50 dark:border-gray-700/50", children: (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-4", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex-1 relative", children: [(0, jsx_runtime_1.jsx)(lucide_react_1.Search, { className: "absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" }), (0, jsx_runtime_1.jsx)("input", { type: "text", placeholder: `Search ${activeTab}...`, value: searchTerm, onChange: (e) => setSearchTerm(e.target.value), className: "w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm" })] }), activeTab === 'logs' && ((0, jsx_runtime_1.jsxs)("select", { value: selectedLevel, onChange: (e) => setSelectedLevel(e.target.value), className: "px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500", children: [(0, jsx_runtime_1.jsx)("option", { value: "", children: "All Levels" }), (0, jsx_runtime_1.jsx)("option", { value: "error", children: "Error" }), (0, jsx_runtime_1.jsx)("option", { value: "warn", children: "Warning" }), (0, jsx_runtime_1.jsx)("option", { value: "info", children: "Info" })] }))] }) }), (0, jsx_runtime_1.jsx)("div", { className: "p-4", children: activeTab === 'alerts' ? ((0, jsx_runtime_1.jsx)("div", { className: "space-y-4", children: filteredAlerts.map((alert) => ((0, jsx_runtime_1.jsx)("div", { className: `p-4 rounded-lg border ${alert.type === 'error' ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/50' :
+                                    alert.type === 'warning' ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800/50' :
+                                        'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800/50'}`, children: (0, jsx_runtime_1.jsxs)("div", { className: "flex items-start space-x-3", children: [getAlertIcon(alert.type), (0, jsx_runtime_1.jsxs)("div", { className: "flex-1", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between", children: [(0, jsx_runtime_1.jsx)("h4", { className: "text-sm font-medium text-gray-900 dark:text-white", children: alert.title }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-2", children: [(0, jsx_runtime_1.jsx)(StatusBadge_1.default, { status: alert.resolved ? 'completed' : 'pending' }), (0, jsx_runtime_1.jsx)("span", { className: "text-xs text-gray-500 dark:text-gray-400", children: new Date(alert.timestamp).toLocaleString() })] })] }), (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400 mt-1", children: alert.message }), (0, jsx_runtime_1.jsxs)("p", { className: "text-xs text-gray-500 dark:text-gray-400 mt-2 font-mono", children: ["Base: ", alert.baseId] })] })] }) }, alert.id))) })) : ((0, jsx_runtime_1.jsx)("div", { className: "space-y-2", children: filteredLogs.map((log) => ((0, jsx_runtime_1.jsx)("div", { className: "p-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 rounded-lg transition-colors", children: (0, jsx_runtime_1.jsxs)("div", { className: "flex items-start space-x-3", children: [getLogIcon(log.level), (0, jsx_runtime_1.jsxs)("div", { className: "flex-1 min-w-0", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between", children: [(0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-900 dark:text-white", children: log.message }), (0, jsx_runtime_1.jsx)("span", { className: "text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap ml-4", children: new Date(log.timestamp).toLocaleString() })] }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-4 mt-1", children: [(0, jsx_runtime_1.jsx)("span", { className: "text-xs text-gray-500 dark:text-gray-400 font-mono", children: log.baseId }), (0, jsx_runtime_1.jsx)("span", { className: `text-xs px-2 py-0.5 rounded-full ${log.level === 'error' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
+                                                                log.level === 'warn' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
+                                                                    'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'}`, children: log.level.toUpperCase() })] }), log.details && ((0, jsx_runtime_1.jsxs)("details", { className: "mt-2", children: [(0, jsx_runtime_1.jsx)("summary", { className: "text-xs text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300", children: "Show details" }), (0, jsx_runtime_1.jsx)("pre", { className: "text-xs text-gray-600 dark:text-gray-400 mt-1 p-2 bg-gray-100 dark:bg-gray-800 rounded overflow-x-auto", children: JSON.stringify(log.details, null, 2) })] }))] })] }) }, log.id))) })) })] })] }));
 }
 //# sourceMappingURL=AlertsLogs.js.map

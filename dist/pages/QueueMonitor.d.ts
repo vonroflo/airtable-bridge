@@ -1,3 +1,2 @@
-import React from 'react';
-export default function QueueMonitor(): React.JSX.Element;
+export default function QueueMonitor(): import("react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=QueueMonitor.d.ts.map

@@ -1,10 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = StatusBadge;
-const react_1 = __importDefault(require("react"));
+const jsx_runtime_1 = require("react/jsx-runtime");
 function StatusBadge({ status, pulse = false }) {
     const getStatusConfig = (status) => {
         switch (status) {
@@ -41,9 +38,6 @@ function StatusBadge({ status, pulse = false }) {
         }
     };
     const config = getStatusConfig(status);
-    return (<span className={`${config.className} ${pulse ? 'animate-pulse-slow' : ''}`}>
-      {pulse && (<span className="w-2 h-2 bg-current rounded-full mr-1.5 animate-pulse"></span>)}
-      {config.text}
-    </span>);
+    return ((0, jsx_runtime_1.jsxs)("span", { className: `${config.className} ${pulse ? 'animate-pulse-slow' : ''}`, children: [pulse && ((0, jsx_runtime_1.jsx)("span", { className: "w-2 h-2 bg-current rounded-full mr-1.5 animate-pulse" })), config.text] }));
 }
 //# sourceMappingURL=StatusBadge.js.map

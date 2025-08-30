@@ -1,3 +1,2 @@
-import React from 'react';
-export default function ApiMetrics(): React.JSX.Element;
+export default function ApiMetrics(): import("react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=ApiMetrics.d.ts.map

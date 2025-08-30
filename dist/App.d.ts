@@ -1,4 +1,3 @@
-import React from 'react';
-declare function App(): React.JSX.Element;
+declare function App(): import("react/jsx-runtime").JSX.Element;
 export default App;
 //# sourceMappingURL=App.d.ts.map

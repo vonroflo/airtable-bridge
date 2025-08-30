@@ -1,40 +1,8 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Settings;
-const react_1 = __importStar(require("react"));
+const jsx_runtime_1 = require("react/jsx-runtime");
+const react_1 = require("react");
 const lucide_react_1 = require("lucide-react");
 function Settings() {
     const [settings, setSettings] = (0, react_1.useState)({
@@ -80,262 +48,30 @@ function Settings() {
             }
         });
     };
-    return (<div className="space-y-6 animate-fade-in">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Settings
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Configure system parameters and alert thresholds
-          </p>
-        </div>
-        <div className="flex items-center space-x-2">
-          <button onClick={handleReset} className="flex items-center space-x-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors">
-            <lucide_react_1.RefreshCw className="w-4 h-4"/>
-            <span>Reset</span>
-          </button>
-          <button onClick={handleSave} className="flex items-center space-x-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors">
-            <lucide_react_1.Save className="w-4 h-4"/>
-            <span>Save Changes</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Rate Limiting Settings */}
-      <div className="card">
-        <div className="flex items-center space-x-2 mb-6">
-          <lucide_react_1.Shield className="w-5 h-5 text-primary-600"/>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Rate Limiting
-          </h3>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Global Rate Limit (requests/minute)
-            </label>
-            <input type="number" value={settings.globalRateLimit} onChange={(e) => setSettings(prev => ({ ...prev, globalRateLimit: parseInt(e.target.value) }))} className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"/>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Default Base Rate Limit (requests/minute)
-            </label>
-            <input type="number" value={settings.defaultBaseRateLimit} onChange={(e) => setSettings(prev => ({ ...prev, defaultBaseRateLimit: parseInt(e.target.value) }))} className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"/>
-          </div>
-        </div>
-      </div>
-
-      {/* Queue Configuration */}
-      <div className="card">
-        <div className="flex items-center space-x-2 mb-6">
-          <lucide_react_1.Clock className="w-5 h-5 text-primary-600"/>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Queue Configuration
-          </h3>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Concurrency
-            </label>
-            <input type="number" value={settings.queueConcurrency} onChange={(e) => setSettings(prev => ({ ...prev, queueConcurrency: parseInt(e.target.value) }))} className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"/>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Retry Delay (ms)
-            </label>
-            <input type="number" value={settings.queueRetryDelay} onChange={(e) => setSettings(prev => ({ ...prev, queueRetryDelay: parseInt(e.target.value) }))} className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"/>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Max Attempts
-            </label>
-            <input type="number" value={settings.queueMaxAttempts} onChange={(e) => setSettings(prev => ({ ...prev, queueMaxAttempts: parseInt(e.target.value) }))} className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"/>
-          </div>
-        </div>
-      </div>
-
-      {/* Cache Configuration */}
-      <div className="card">
-        <div className="flex items-center space-x-2 mb-6">
-          <lucide_react_1.Database className="w-5 h-5 text-primary-600"/>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Cache Configuration
-          </h3>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Default Cache TTL (ms)
-            </label>
-            <input type="number" value={settings.cacheTtl} onChange={(e) => setSettings(prev => ({ ...prev, cacheTtl: parseInt(e.target.value) }))} className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"/>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-              {(settings.cacheTtl / 1000 / 60).toFixed(1)} minutes
-            </p>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Query Cache TTL (ms)
-            </label>
-            <input type="number" value={settings.queryCacheTtl} onChange={(e) => setSettings(prev => ({ ...prev, queryCacheTtl: parseInt(e.target.value) }))} className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"/>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-              {(settings.queryCacheTtl / 1000 / 60).toFixed(1)} minutes
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Alert Thresholds */}
-      <div className="card">
-        <div className="flex items-center space-x-2 mb-6">
-          <lucide_react_1.AlertTriangle className="w-5 h-5 text-primary-600"/>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Alert Thresholds
-          </h3>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Queue Depth
-            </label>
-            <input type="number" value={settings.alertThresholds.queueDepth} onChange={(e) => setSettings(prev => ({
-            ...prev,
-            alertThresholds: {
-                ...prev.alertThresholds,
-                queueDepth: parseInt(e.target.value)
-            }
-        }))} className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"/>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Response Time (ms)
-            </label>
-            <input type="number" value={settings.alertThresholds.responseTime} onChange={(e) => setSettings(prev => ({
-            ...prev,
-            alertThresholds: {
-                ...prev.alertThresholds,
-                responseTime: parseInt(e.target.value)
-            }
-        }))} className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"/>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Error Rate (%)
-            </label>
-            <input type="number" value={settings.alertThresholds.errorRate} onChange={(e) => setSettings(prev => ({
-            ...prev,
-            alertThresholds: {
-                ...prev.alertThresholds,
-                errorRate: parseInt(e.target.value)
-            }
-        }))} className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"/>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Storage Usage (%)
-            </label>
-            <input type="number" value={settings.alertThresholds.storageUsage} onChange={(e) => setSettings(prev => ({
-            ...prev,
-            alertThresholds: {
-                ...prev.alertThresholds,
-                storageUsage: parseInt(e.target.value)
-            }
-        }))} className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"/>
-          </div>
-        </div>
-      </div>
-
-      {/* System Information */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
-          System Information
-        </h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Version</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">v1.0.0</p>
-          </div>
-          
-          <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Environment</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Development</p>
-          </div>
-          
-          <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Uptime</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">2d 14h 32m</p>
-          </div>
-          
-          <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Database</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">PostgreSQL 14.2</p>
-          </div>
-          
-          <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Cache</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Redis 7.0</p>
-          </div>
-          
-          <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Queue</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">BullMQ 4.0</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Danger Zone */}
-      <div className="card border-red-200 dark:border-red-800">
-        <div className="flex items-center space-x-2 mb-6">
-          <lucide_react_1.AlertTriangle className="w-5 h-5 text-red-600"/>
-          <h3 className="text-lg font-semibold text-red-600 dark:text-red-400">
-            Danger Zone
-          </h3>
-        </div>
-        
-        <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
-            <div>
-              <h4 className="text-sm font-medium text-gray-900 dark:text-white">
-                Clear All Caches
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Remove all cached data. This will temporarily impact performance.
-              </p>
-            </div>
-            <button className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-lg transition-colors">
-              Clear Caches
-            </button>
-          </div>
-          
-          <div className="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
-            <div>
-              <h4 className="text-sm font-medium text-gray-900 dark:text-white">
-                Reset All Queues
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Clear all pending jobs. This will cancel in-progress operations.
-              </p>
-            </div>
-            <button className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-lg transition-colors">
-              Reset Queues
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>);
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "space-y-6 animate-fade-in", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between", children: [(0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h1", { className: "text-3xl font-bold text-gray-900 dark:text-white", children: "Settings" }), (0, jsx_runtime_1.jsx)("p", { className: "text-gray-600 dark:text-gray-400 mt-1", children: "Configure system parameters and alert thresholds" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-2", children: [(0, jsx_runtime_1.jsxs)("button", { onClick: handleReset, className: "flex items-center space-x-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors", children: [(0, jsx_runtime_1.jsx)(lucide_react_1.RefreshCw, { className: "w-4 h-4" }), (0, jsx_runtime_1.jsx)("span", { children: "Reset" })] }), (0, jsx_runtime_1.jsxs)("button", { onClick: handleSave, className: "flex items-center space-x-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors", children: [(0, jsx_runtime_1.jsx)(lucide_react_1.Save, { className: "w-4 h-4" }), (0, jsx_runtime_1.jsx)("span", { children: "Save Changes" })] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "card", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-2 mb-6", children: [(0, jsx_runtime_1.jsx)(lucide_react_1.Shield, { className: "w-5 h-5 text-primary-600" }), (0, jsx_runtime_1.jsx)("h3", { className: "text-lg font-semibold text-gray-900 dark:text-white", children: "Rate Limiting" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [(0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("label", { className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2", children: "Global Rate Limit (requests/minute)" }), (0, jsx_runtime_1.jsx)("input", { type: "number", value: settings.globalRateLimit, onChange: (e) => setSettings(prev => ({ ...prev, globalRateLimit: parseInt(e.target.value) })), className: "w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" })] }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("label", { className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2", children: "Default Base Rate Limit (requests/minute)" }), (0, jsx_runtime_1.jsx)("input", { type: "number", value: settings.defaultBaseRateLimit, onChange: (e) => setSettings(prev => ({ ...prev, defaultBaseRateLimit: parseInt(e.target.value) })), className: "w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" })] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "card", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-2 mb-6", children: [(0, jsx_runtime_1.jsx)(lucide_react_1.Clock, { className: "w-5 h-5 text-primary-600" }), (0, jsx_runtime_1.jsx)("h3", { className: "text-lg font-semibold text-gray-900 dark:text-white", children: "Queue Configuration" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [(0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("label", { className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2", children: "Concurrency" }), (0, jsx_runtime_1.jsx)("input", { type: "number", value: settings.queueConcurrency, onChange: (e) => setSettings(prev => ({ ...prev, queueConcurrency: parseInt(e.target.value) })), className: "w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" })] }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("label", { className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2", children: "Retry Delay (ms)" }), (0, jsx_runtime_1.jsx)("input", { type: "number", value: settings.queueRetryDelay, onChange: (e) => setSettings(prev => ({ ...prev, queueRetryDelay: parseInt(e.target.value) })), className: "w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" })] }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("label", { className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2", children: "Max Attempts" }), (0, jsx_runtime_1.jsx)("input", { type: "number", value: settings.queueMaxAttempts, onChange: (e) => setSettings(prev => ({ ...prev, queueMaxAttempts: parseInt(e.target.value) })), className: "w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" })] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "card", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-2 mb-6", children: [(0, jsx_runtime_1.jsx)(lucide_react_1.Database, { className: "w-5 h-5 text-primary-600" }), (0, jsx_runtime_1.jsx)("h3", { className: "text-lg font-semibold text-gray-900 dark:text-white", children: "Cache Configuration" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [(0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("label", { className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2", children: "Default Cache TTL (ms)" }), (0, jsx_runtime_1.jsx)("input", { type: "number", value: settings.cacheTtl, onChange: (e) => setSettings(prev => ({ ...prev, cacheTtl: parseInt(e.target.value) })), className: "w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" }), (0, jsx_runtime_1.jsxs)("p", { className: "text-xs text-gray-500 dark:text-gray-400 mt-1", children: [(settings.cacheTtl / 1000 / 60).toFixed(1), " minutes"] })] }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("label", { className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2", children: "Query Cache TTL (ms)" }), (0, jsx_runtime_1.jsx)("input", { type: "number", value: settings.queryCacheTtl, onChange: (e) => setSettings(prev => ({ ...prev, queryCacheTtl: parseInt(e.target.value) })), className: "w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" }), (0, jsx_runtime_1.jsxs)("p", { className: "text-xs text-gray-500 dark:text-gray-400 mt-1", children: [(settings.queryCacheTtl / 1000 / 60).toFixed(1), " minutes"] })] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "card", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-2 mb-6", children: [(0, jsx_runtime_1.jsx)(lucide_react_1.AlertTriangle, { className: "w-5 h-5 text-primary-600" }), (0, jsx_runtime_1.jsx)("h3", { className: "text-lg font-semibold text-gray-900 dark:text-white", children: "Alert Thresholds" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6", children: [(0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("label", { className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2", children: "Queue Depth" }), (0, jsx_runtime_1.jsx)("input", { type: "number", value: settings.alertThresholds.queueDepth, onChange: (e) => setSettings(prev => ({
+                                            ...prev,
+                                            alertThresholds: {
+                                                ...prev.alertThresholds,
+                                                queueDepth: parseInt(e.target.value)
+                                            }
+                                        })), className: "w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" })] }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("label", { className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2", children: "Response Time (ms)" }), (0, jsx_runtime_1.jsx)("input", { type: "number", value: settings.alertThresholds.responseTime, onChange: (e) => setSettings(prev => ({
+                                            ...prev,
+                                            alertThresholds: {
+                                                ...prev.alertThresholds,
+                                                responseTime: parseInt(e.target.value)
+                                            }
+                                        })), className: "w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" })] }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("label", { className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2", children: "Error Rate (%)" }), (0, jsx_runtime_1.jsx)("input", { type: "number", value: settings.alertThresholds.errorRate, onChange: (e) => setSettings(prev => ({
+                                            ...prev,
+                                            alertThresholds: {
+                                                ...prev.alertThresholds,
+                                                errorRate: parseInt(e.target.value)
+                                            }
+                                        })), className: "w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" })] }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("label", { className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2", children: "Storage Usage (%)" }), (0, jsx_runtime_1.jsx)("input", { type: "number", value: settings.alertThresholds.storageUsage, onChange: (e) => setSettings(prev => ({
+                                            ...prev,
+                                            alertThresholds: {
+                                                ...prev.alertThresholds,
+                                                storageUsage: parseInt(e.target.value)
+                                            }
+                                        })), className: "w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" })] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "card", children: [(0, jsx_runtime_1.jsx)("h3", { className: "text-lg font-semibold text-gray-900 dark:text-white mb-6", children: "System Information" }), (0, jsx_runtime_1.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6", children: [(0, jsx_runtime_1.jsxs)("div", { className: "p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg", children: [(0, jsx_runtime_1.jsx)("h4", { className: "text-sm font-medium text-gray-900 dark:text-white mb-2", children: "Version" }), (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "v1.0.0" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg", children: [(0, jsx_runtime_1.jsx)("h4", { className: "text-sm font-medium text-gray-900 dark:text-white mb-2", children: "Environment" }), (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Development" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg", children: [(0, jsx_runtime_1.jsx)("h4", { className: "text-sm font-medium text-gray-900 dark:text-white mb-2", children: "Uptime" }), (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "2d 14h 32m" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg", children: [(0, jsx_runtime_1.jsx)("h4", { className: "text-sm font-medium text-gray-900 dark:text-white mb-2", children: "Database" }), (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "PostgreSQL 14.2" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg", children: [(0, jsx_runtime_1.jsx)("h4", { className: "text-sm font-medium text-gray-900 dark:text-white mb-2", children: "Cache" }), (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Redis 7.0" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg", children: [(0, jsx_runtime_1.jsx)("h4", { className: "text-sm font-medium text-gray-900 dark:text-white mb-2", children: "Queue" }), (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "BullMQ 4.0" })] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "card border-red-200 dark:border-red-800", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center space-x-2 mb-6", children: [(0, jsx_runtime_1.jsx)(lucide_react_1.AlertTriangle, { className: "w-5 h-5 text-red-600" }), (0, jsx_runtime_1.jsx)("h3", { className: "text-lg font-semibold text-red-600 dark:text-red-400", children: "Danger Zone" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "space-y-4", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/20 rounded-lg", children: [(0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h4", { className: "text-sm font-medium text-gray-900 dark:text-white", children: "Clear All Caches" }), (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Remove all cached data. This will temporarily impact performance." })] }), (0, jsx_runtime_1.jsx)("button", { className: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-lg transition-colors", children: "Clear Caches" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/20 rounded-lg", children: [(0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h4", { className: "text-sm font-medium text-gray-900 dark:text-white", children: "Reset All Queues" }), (0, jsx_runtime_1.jsx)("p", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Clear all pending jobs. This will cancel in-progress operations." })] }), (0, jsx_runtime_1.jsx)("button", { className: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-lg transition-colors", children: "Reset Queues" })] })] })] })] }));
 }
 //# sourceMappingURL=Settings.js.map

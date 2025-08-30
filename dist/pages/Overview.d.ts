@@ -1,3 +1,2 @@
-import React from 'react';
-export default function Overview(): React.JSX.Element;
+export default function Overview(): import("react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=Overview.d.ts.map

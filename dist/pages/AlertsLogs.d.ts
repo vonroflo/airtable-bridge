@@ -1,3 +1,2 @@
-import React from 'react';
-export default function AlertsLogs(): React.JSX.Element;
+export default function AlertsLogs(): import("react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=AlertsLogs.d.ts.map
