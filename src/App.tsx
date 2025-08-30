@@ -10,6 +10,7 @@ import ApiMetrics from './pages/ApiMetrics'
 import StorageManagement from './pages/StorageManagement'
 import AlertsLogs from './pages/AlertsLogs'
 import Settings from './pages/Settings'
+import Provisioning from './pages/Provisioning'
 
 function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -39,6 +40,7 @@ function App() {
               <Route path="/storage" element={<StorageManagement />} />
               <Route path="/alerts" element={<AlertsLogs />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/provisioning" element={<Provisioning />} />
             </Routes>
           </main>
         </div>

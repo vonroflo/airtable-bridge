@@ -11,7 +11,8 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
-  Zap
+  Zap,
+  Rocket
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -27,6 +28,7 @@ const navigation = [
   { name: 'API Metrics', href: '/metrics', icon: BarChart3 },
   { name: 'Storage', href: '/storage', icon: HardDrive },
   { name: 'Alerts & Logs', href: '/alerts', icon: AlertTriangle },
+  { name: 'Provisioning', href: '/provisioning', icon: Rocket },
   { name: 'Settings', href: '/settings', icon: Settings },
 ]
 

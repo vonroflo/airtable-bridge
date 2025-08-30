@@ -77,10 +77,12 @@ app.get('/api/health', (_req, res) => {
 // Import routes
 import basesRouter from './api/routes/bases';
 import recordsRouter from './api/routes/records';
+import provisioningRouter from './api/routes/provisioning';
 
 // API routes
 app.use('/api/bases', basesRouter);
 app.use('/api', recordsRouter);
+app.use('/api/provisioning', provisioningRouter);
 
 app.get('/api', (_req, res) => {
   res.json({
@@ -89,7 +91,8 @@ app.get('/api', (_req, res) => {
     status: 'running',
     endpoints: {
       bases: '/api/bases',
-      records: '/api/{baseId}/tables/{tableId}/records'
+      records: '/api/{baseId}/tables/{tableId}/records',
+      provisioning: '/api/provisioning'
     }
   });
 });

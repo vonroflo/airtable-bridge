@@ -65,4 +65,7 @@ export const API_ENDPOINTS = {
   records: (baseId: string, tableId: string) => `/${baseId}/tables/${tableId}/records`,
   batchStatus: (baseId: string, tableId: string, operationType: string) => 
     `/${baseId}/tables/${tableId}/batch/${operationType}/status`,
+  provisioning: '/provisioning',
+  provisioningStatus: (jobId: string) => `/provisioning/status/${jobId}`,
+  crmSchema: '/provisioning/schema',
 }
