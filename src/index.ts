@@ -65,7 +65,7 @@ app.use((req, res, next) => {
 });
 
 // Health check endpoint
-app.get('/health', (_req, res) => {
+app.get('/api/health', (_req, res) => {
   res.status(200).json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
